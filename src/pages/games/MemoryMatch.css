@@ -1,0 +1,235 @@
+.game-container-memory {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.game-main-memory {
+  background: rgba(45, 27, 78, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+/* Memory Stats Bar */
+.memory-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: rgba(61, 42, 95, 0.4);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.stat-item .value {
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 1.2rem;
+}
+
+/* Memory Grid */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: rgba(61, 42, 95, 0.6);
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 0;
+  position: relative;
+  perspective: 1000px;
+}
+
+.memory-card:hover:not(:disabled) {
+  border-color: var(--gold);
+  transform: scale(1.05);
+}
+
+.memory-card:disabled {
+  cursor: not-allowed;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--primary-dark);
+}
+
+.card-back {
+  background: rgba(61, 42, 95, 0.8);
+  color: var(--text-primary);
+  transform: rotateY(180deg);
+}
+
+.memory-card.flipped {
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Game Over Container */
+.game-over-container {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
+  border: 2px solid var(--border-color);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.game-over-container h2 {
+  color: #6ee7b7;
+  margin-bottom: 1rem;
+}
+
+.game-over-container p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.final-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: rgba(61, 42, 95, 0.4);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.final-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.final-stats .label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.final-stats .value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.final-stats .reward {
+  color: #6ee7b7;
+}
+
+.game-over-container .btn {
+  margin: 0.5rem;
+}
+
+/* Info Box */
+.game-info-box {
+  background: rgba(61, 42, 95, 0.4);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.game-info-box h3 {
+  color: var(--gold);
+  margin: 0 0 1rem;
+}
+
+.game-info-box p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+}
+
+.game-info-box strong {
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .game-container-memory {
+    grid-template-columns: 1fr;
+  }
+
+  .game-sidebar {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-main-memory {
+    padding: 1.5rem;
+  }
+
+  .memory-grid {
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .card-front,
+  .card-back {
+    font-size: 1.5rem;
+  }
+
+  .memory-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .final-stats {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .game-over-container .btn {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+}

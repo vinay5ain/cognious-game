@@ -1,0 +1,334 @@
+/* ============================================================================
+   NAVBAR - PROFESSIONAL COMPACT STICKY HEADER
+   ============================================================================ */
+
+.navbar {
+  background: linear-gradient(135deg, rgba(10, 4, 16, 0.98) 0%, rgba(26, 15, 46, 0.98) 100%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--navbar-height);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* ============================================================================
+   NAVBAR BRAND / LOGO
+   ============================================================================ */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+}
+
+.navbar-brand:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+}
+
+.logo-text {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ============================================================================
+   NAVBAR MENU - DESKTOP NAVIGATION
+   ============================================================================ */
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+  position: relative;
+  display: inline-block;
+  padding: 0.25rem 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--gold);
+  outline: none;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+/* ============================================================================
+   NAVBAR RIGHT SECTION
+   ============================================================================ */
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* Wallet Display */
+.wallet-display {
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(8px);
+  transition: var(--transition-fast);
+}
+
+.wallet-display:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+}
+
+.wallet-icon {
+  font-size: 1.1rem;
+}
+
+.wallet-amount {
+  font-weight: 700;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+
+/* ============================================================================
+   HAMBURGER MENU - MOBILE NAVIGATION TOGGLE
+   ============================================================================ */
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.hamburger-menu:hover {
+  transform: scale(1.1);
+}
+
+.hamburger-menu:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border-radius: 2px;
+  transition: var(--transition-fast);
+}
+
+/* ============================================================================
+   RESPONSIVE - TABLET (1024px)
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .navbar-container {
+    gap: 1rem;
+  }
+
+  .navbar-menu {
+    gap: 2rem;
+    justify-content: flex-start;
+    flex: 0;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+  }
+
+  .wallet-amount {
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE - MOBILE (768px)
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .navbar {
+    height: 60px;
+  }
+
+  .navbar-container {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+    gap: 0.4rem;
+  }
+
+  .logo-icon {
+    font-size: 1.25rem;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .navbar-menu {
+    display: none;
+  }
+
+  .wallet-amount {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+
+  .wallet-display {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .wallet-icon {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE - SMALL MOBILE (480px)
+   ============================================================================ */
+
+@media (max-width: 480px) {
+  .navbar {
+    height: 56px;
+  }
+
+  .navbar-container {
+    padding: 0 0.75rem;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .logo-icon {
+    font-size: 1.1rem;
+  }
+
+  .wallet-display {
+    padding: 0.35rem 0.7rem;
+    gap: 0.35rem;
+  }
+
+  .wallet-icon {
+    font-size: 0.9rem;
+  }
+
+  .hamburger-line {
+    width: 20px;
+    height: 2px;
+  }
+
+  .hamburger-menu {
+    gap: 4px;
+    padding: 0.4rem;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+.navbar:focus-within {
+  box-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+}
+
+@media (prefers-contrast: more) {
+  .navbar {
+    border-bottom-width: 2px;
+  }
+
+  .nav-link::after {
+    height: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-brand,
+  .nav-link,
+  .hamburger-menu,
+  .wallet-display {
+    transition: none;
+  }
+
+  .nav-link::after {
+    transition: none;
+  }
+}

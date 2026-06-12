@@ -1,0 +1,346 @@
+/* ============================================================================
+   GAME CARD - PROFESSIONAL GAME SHOWCASE COMPONENT
+   ============================================================================ */
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(45, 27, 78, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  min-height: 360px;
+  position: relative;
+}
+
+.game-card:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-gold-lg);
+  background: rgba(45, 27, 78, 0.8);
+}
+
+/* ============================================================================
+   THUMBNAIL AREA - LARGE VISUAL SHOWCASE
+   ============================================================================ */
+
+.game-thumbnail {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.2) 0%,
+    rgba(212, 175, 55, 0.1) 100%
+  );
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.game-thumbnail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+  animation: none;
+}
+
+.game-card:hover .game-thumbnail::before {
+  left: 100%;
+  animation: shimmer 0.6s ease;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.game-icon-container {
+  font-size: 3.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  transition: var(--transition);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.game-card:hover .game-icon-container {
+  transform: scale(1.1);
+  filter: drop-shadow(0 6px 20px rgba(212, 175, 55, 0.3));
+}
+
+.game-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 1;
+}
+
+.game-card:hover .game-overlay {
+  opacity: 1;
+}
+
+.play-icon {
+  font-size: 2rem;
+  color: var(--gold);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+/* ============================================================================
+   CONTENT AREA - BODY
+   ============================================================================ */
+
+.game-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 0.75rem;
+}
+
+.game-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.game-category {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(212, 175, 55, 0.2) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--text-primary);
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(8px);
+}
+
+.game-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.game-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* ============================================================================
+   FOOTER - REWARD & ACTION
+   ============================================================================ */
+
+.game-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  margin-top: auto;
+}
+
+.game-reward {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reward-icon {
+  font-size: 1.1rem;
+}
+
+.reward-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.play-button {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--primary-dark);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.play-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold-lg);
+}
+
+.play-button:active {
+  transform: translateY(0);
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .game-card {
+    min-height: 340px;
+  }
+
+  .game-thumbnail {
+    height: 140px;
+  }
+
+  .game-icon-container {
+    font-size: 3rem;
+  }
+
+  .game-title {
+    font-size: 1.2rem;
+  }
+
+  .game-body {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-card {
+    min-height: 320px;
+  }
+
+  .game-thumbnail {
+    height: 120px;
+  }
+
+  .game-icon-container {
+    font-size: 2.5rem;
+  }
+
+  .game-body {
+    padding: 1.1rem;
+    gap: 0.6rem;
+  }
+
+  .game-title {
+    font-size: 1.1rem;
+  }
+
+  .game-description {
+    font-size: 0.85rem;
+  }
+
+  .play-button {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .game-footer {
+    padding-top: 0.75rem;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-card {
+    min-height: 300px;
+  }
+
+  .game-thumbnail {
+    height: 100px;
+  }
+
+  .game-icon-container {
+    font-size: 2rem;
+  }
+
+  .game-body {
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .game-category {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .game-title {
+    font-size: 1rem;
+  }
+
+  .game-description {
+    font-size: 0.8rem;
+  }
+
+  .play-button {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  .game-footer {
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+  }
+
+  .reward-text {
+    font-size: 0.75rem;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+.game-card:focus-within {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+.play-button:focus {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card,
+  .game-icon-container,
+  .play-button,
+  .game-overlay {
+    transition: none;
+  }
+}
