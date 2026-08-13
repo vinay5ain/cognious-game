@@ -1,343 +1,143 @@
-# 🎮 Cognieos Demo - Interactive Gaming Platform
+# Cognieos Demo (cognious-game)
 
-An interactive gaming platform web application built with React and JavaScript to showcase **Cognieos' development capabilities**. This is a **demonstration project** featuring multiple games, a wallet system, player statistics, and a modern dark-themed UI.
+A client-side interactive gaming demo built with React and Vite — three single-player mini-games plus a local wallet/profile system that persists data in the browser (Local Storage). Intended as a demonstration of frontend application design, state management and UI implementation.
 
-## ⚠️ Disclaimer
+## Overview
+- Problem it solves: provides an example of a small interactive game platform that demonstrates UI design, state & persistence patterns, and simple game logic without requiring a backend.
+- Why it was built: to showcase frontend development capabilities (component design, state handling, routing, styling) and to be a learning/project sample.
+- What the application does: users can sign in with a username, play three demo games, earn/spend demo coins, view transaction history, claim a daily reward, and track per-game statistics.
+- Who can use it: developers, recruiters, or interviewers looking for a frontend project demonstrating React, client-side persistence and component-based architecture.
 
-**This application is a demonstration developed by Cognieos to showcase technical capabilities. It does not support real-money gambling or financial transactions.**
+## Key features (implemented)
+- Lucky Wheel — spin to receive a random coin reward.
+- Guess The Number — guess 1–10 to win/lose demo coins.
+- Memory Match — card-pair memory game with best-time tracking.
+- Wallet system with starting balance, transactions and balance updates.
+- Daily reward with 24-hour cooldown.
+- Player profile with per-game statistics (played, wins, best time).
+- Local Storage persistence for user, wallet, transactions and stats.
+- React Context API for global state; React Router for navigation.
+- Responsive layouts and separate components for UI pieces.
 
----
+## Tech stack
+- Frontend
+  - JavaScript (ESM)
+  - React (package.json lists react 18)
+  - react-router-dom (routing)
+  - Vite (development + build)
+- Styling
+  - Plain CSS files (component/page styles under src/)
+- Tools
+  - npm (scripts in package.json: dev, build, preview)
 
-## ✨ Features
+## How it works (runtime flow)
+- main.jsx mounts the React app and the router.
+- App.jsx defines routes (Home, Login, GameLobby, Profile, game pages).
+- src/context/GameContext.jsx provides global state (user, wallet, transactions, gameStats, daily reward) and exposes actions:
+  - loginUser(username), addTransaction(amount, description), claimDailyReward(), updateGameStats(), resetProgress().
+- Each game page uses the exposed context API to update wallet/statistics and create transactions that are persisted to Local Storage.
+- All data (user, wallet, transactions, gameStats, lastDailyReward) is loaded from Local Storage on mount and saved after updates.
 
-### 🎮 Games
-- **Lucky Wheel**: Spin the wheel to win demo coins (50-500 coins)
-- **Guess The Number**: Guess a number between 1-10 (+100 coins win, -20 coins loss)
-- **Memory Match**: Match card pairs to win 200 coins
+## Architecture (single-page app)
+- Single-page React application (client-only).
+- State boundary: GameContext (global) for cross-page state; components use the useGame hook / context to interact.
+- UI: pages (src/pages) render game UI and reusable components (src/components).
+- Persistence: Local Storage keys used:
+  - cognieos_user
+  - cognieos_wallet
+  - cognieos_transactions
+  - cognieos_gameStats
+  - cognieos_lastDailyReward
 
-### 💰 Wallet System
-- Start with **1,000 demo coins**
-- Real-time balance tracking
-- Daily reward system (100 coins every 24 hours)
-- Complete transaction history
-- Local storage persistence
-
-### 📊 Player Profile
-- Username tracking
-- Game statistics per game
-- Total wins and games played
-- Win rates calculation
-- Best scores (Memory Match)
-- Progress reset option
-
-### 🎨 User Interface
-- Dark purple gaming aesthetic with gold highlights
-- Fully responsive mobile-first design
-- Smooth animations and transitions
-- Modern card-based layouts
-- Interactive hover effects
-- Loading and empty states
-
-### 🔧 Technical Features
-- React Context API for state management
-- React Router for navigation
-- Local Storage for data persistence
-- CSS Modules and plain CSS styling
-- No backend required
-- Vite for fast development
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. **Clone or navigate to the project directory:**
-```bash
-cd cognieos-demo
+## Project structure (important files)
+```
+src/
+  App.jsx                   # Routing and top-level layout
+  main.jsx                  # App bootstrap
+  index.css, App.css        # Global styles
+  context/
+    GameContext.jsx         # Global state + localStorage logic
+  pages/
+    Home.jsx                # Landing / pitch
+    Login.jsx               # Username entry
+    GameLobby.jsx           # Games list
+    Profile.jsx             # User profile, stats, reset
+    games/
+      LuckyWheel.jsx        # Lucky Wheel game logic/UI
+      GuessNumber.jsx       # Guess the Number game logic/UI
+      MemoryMatch.jsx       # Memory Match game logic/UI
+  components/               # Reusable UI: Navbar, GameCard, WalletDisplay, TransactionHistory, Banner, etc.
+package.json                # Dependencies & scripts (vite, react, react-router-dom)
+vite.config.js              # Vite configuration
+index.html                  # App entry HTML
 ```
 
-2. **Install dependencies:**
+## Installation — run locally
+1. Clone the repo and enter the directory:
+```bash
+git clone https://github.com/vinay5ain/cognious-game.git
+cd cognious-game
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-### Running the Application
-
-**Development Mode:**
+3. Start development server:
 ```bash
 npm run dev
 ```
-The application will start at `http://localhost:5173`
+- The Vite dev server will usually be available at http://localhost:5173
 
-**Build for Production:**
+4. Build / preview production bundle:
 ```bash
 npm run build
-```
-
-**Preview Production Build:**
-```bash
 npm run preview
 ```
 
----
+## Environment variables
+- None required. This is a client-side application that uses browser Local Storage only.
 
-## 📁 Project Structure
+## API documentation
+- No backend or external HTTP API is implemented. All data and logic run in the browser via React and Local Storage.
 
-```
-src/
-├── components/              # Reusable components
-│   ├── Navbar.jsx
-│   ├── Footer.jsx
-│   ├── Banner.jsx
-│   ├── GameCard.jsx
-│   ├── WalletDisplay.jsx
-│   ├── CategoryTabs.jsx
-│   ├── DailyReward.jsx
-│   └── TransactionHistory.jsx
-│
-├── pages/                   # Page components
-│   ├── Home.jsx            # Home page with pitch section
-│   ├── Login.jsx           # Login/Sign-up page
-│   ├── GameLobby.jsx       # Games selection
-│   ├── Profile.jsx         # Player profile
-│   └── games/              # Game pages
-│       ├── LuckyWheel.jsx
-│       ├── GuessNumber.jsx
-│       └── MemoryMatch.jsx
-│
-├── context/
-│   └── GameContext.jsx     # React Context for state management
-│
-├── hooks/
-│   └── useGame.js          # Custom hook for context
-│
-├── App.jsx                 # Main app component with routing
-├── main.jsx               # Entry point
-├── index.css              # Global styles
-└── App.css                # App-specific styles
-```
+## Screenshots / Demo
+- The repository does not include screenshots or a published deployment URL. The README previously listed recommended deployment targets (Vercel, Netlify, GitHub Pages), but no live link is present in the repo.
 
----
+## Challenges & learning (inferred from implementation)
+- State persistence: synchronizing React state with Local Storage and ensuring consistent updates across actions (transactions, daily reward, stats).
+- Time-based features: implementing a reliable 24-hour cooldown for the daily reward and computing next reward times.
+- Component composition: building reusable UI components and wiring them to a single Context provider.
+- Client-only design: designing transaction and wallet flows entirely on the client while keeping the logic testable and isolated.
+- UX & responsiveness: implementing responsive layouts with plain CSS across multiple pages and game UIs.
 
-## 🎮 How to Play Each Game
+## Suggested realistic improvements (next steps)
+- Add unit and integration tests (Jest + React Testing Library) for GameContext and game logic.
+- Add TypeScript to improve type safety (optional incremental migration).
+- Add accessibility improvements (keyboard nav, ARIA attributes, color-contrast checks).
+- Add CI (GitHub Actions) to run tests and linting.
+- Add a lightweight backend (Express + MongoDB or Firebase) if you want cross-device persistence, real authentication, and user accounts.
+- Add a deployment (Vercel/Netlify) and include a live demo URL in the README.
+- Add code comments where complex game logic exists and document component contracts.
+- Add basic performance profiling (bundle size checks, code-splitting if needed).
 
-### Lucky Wheel
-1. Click the **"SPIN NOW"** button
-2. The wheel rotates and lands on a random segment
-3. You win the coins shown on that segment
-4. Possible rewards: 50, 100, 200, or 500 coins
+## What this project demonstrates (for your GitHub/resume)
+- Practical React SPA development (components, hooks, routing)
+- State management with React Context and custom hooks
+- Client-side persistence with Local Storage
+- Building interactive UI (game logic, animations, responsive layout)
+- Designing a small, maintainable frontend project structure
 
-### Guess The Number
-1. Select a number between 1 and 10
-2. If you guess correctly: **+100 coins**
-3. If you guess wrong: **-20 coins** and see the correct answer
-4. Play as many times as you want
+## Author
+- Repository owner: vinay5ain (GitHub account / repo owner)
 
-### Memory Match
-1. Flip cards to find matching pairs
-2. The game tracks your time and moves
-3. Complete the puzzle to earn **200 coins**
-4. Your best time is automatically saved
+## License
+- The repository contains a demo project. The existing README states the demo is proprietary to Cognieos; no open-source license file is present in the repository.
 
 ---
 
-## 💾 Data Storage
-
-All data is stored in the **browser's Local Storage**:
-
-- **cognieos_user**: Username and join date
-- **cognieos_wallet**: Current demo coin balance
-- **cognieos_transactions**: Complete transaction history
-- **cognieos_gameStats**: Statistics for each game
-- **cognieos_lastDailyReward**: Last daily reward timestamp
-
-Data persists across browser sessions and can be cleared by resetting progress in the Profile page.
-
----
-
-## 🎨 Design System
-
-### Color Palette
-- **Primary Dark**: `#1a0d2e`
-- **Secondary Dark**: `#2d1b4e`
-- **Accent Gold**: `#d4af37`
-- **Accent Purple**: `#a855f7`
-- **Accent Cyan**: `#00d4ff`
-- **Success Green**: `#10b981`
-
-### Typography
-- **Font**: System fonts (Segoe UI, Roboto, etc.)
-- **H1**: 3.5rem, gradient gold
-- **H2**: 2.5rem
-- **H3**: 1.5rem
-- **Body**: 1rem
-
-### Responsive Breakpoints
-- **Desktop**: 1024px and up
-- **Tablet**: 768px to 1023px
-- **Mobile**: Below 768px
-
----
-
-## 🛠️ Customization
-
-### Adding New Games
-1. Create a new file in `src/pages/games/`
-2. Import `useGame` hook for wallet management
-3. Add route in `App.jsx`
-4. Create corresponding game card in the games list
-
-### Modifying Colors
-Edit the CSS variables in `src/index.css`:
-```css
-:root {
-  --primary-dark: #1a0d2e;
-  --gold: #d4af37;
-  /* ... other variables */
-}
-```
-
-### Adjusting Rewards
-Edit reward values in individual game files:
-- Lucky Wheel: `LuckyWheel.jsx` line ~30
-- Guess Number: `GuessNumber.jsx` (100 and -20)
-- Memory Match: `MemoryMatch.jsx` (200 coins)
-
----
-
-## 🔐 Demo Limitations
-
-- **No Backend**: All data is stored locally
-- **No Real Transactions**: Demo coins are fictional
-- **No User Authentication**: Username is stored locally
-- **No Multiplayer**: Single-player only
-- **No Persistence Across Devices**: Data doesn't sync
-
----
-
-## 📱 Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
----
-
-## 🎯 Why Choose Cognieos?
-
-This demo showcases:
-
-✨ **Custom Gaming Experiences**
-- Tailored game designs that engage users
-
-🎨 **Interactive UI Development**
-- Modern, responsive interfaces with smooth animations
-
-💰 **Reward Systems**
-- Flexible wallet and coin systems for gamification
-
-📱 **Mobile-Responsive Applications**
-- Works seamlessly on all devices
-
-⚡ **Fast Deployment**
-- Quick turnaround from concept to production
-
-🚀 **Scalable Architecture**
-- Built to grow with your business
-
----
-
-## 📝 Code Quality
-
-- ✅ Beginner-friendly code with comments
-- ✅ Clean folder structure
-- ✅ Reusable components
-- ✅ Error handling and empty states
-- ✅ No TypeScript (JavaScript only)
-- ✅ No external game libraries
-- ✅ Pure React implementation
-
----
-
-## 🚀 Production Deployment
-
-### Build the Project
-```bash
-npm run build
-```
-
-### Deploy to Services
-- **Vercel**: Recommended for React apps
-- **Netlify**: Simple drag-and-drop deployment
-- **GitHub Pages**: Static hosting
-- **AWS Amplify**: Managed deployment
-
-### Environment Variables
-Currently, no environment variables are required as this is a client-side only application.
-
----
-
-## 🐛 Troubleshooting
-
-### Games not showing up
-- Clear browser cache and local storage
-- Refresh the page
-
-### Wallet balance not updating
-- Check Local Storage in browser DevTools
-- Ensure JavaScript is enabled
-
-### Responsive design issues
-- Clear browser cache
-- Test in different browsers
-
-### Local Storage errors
-- Ensure Private/Incognito mode is disabled
-- Check browser storage limit
-
----
-
-## 📞 Support & Feedback
-
-This is a demonstration project by **Cognieos**. For custom game development or inquiries about Cognieos services, please contact the team.
-
----
-
-## 📄 License
-
-This demo application is proprietary to Cognieos and is provided for demonstration purposes only.
-
----
-
-## 🙏 Credits
-
-- Built with **React 18**
-- Styled with **CSS3**
-- Deployed with **Vite**
-- State management with **React Context API**
-
----
-
-## 🎓 Learning Resources
-
-This project is great for learning:
-- React fundamentals and hooks
-- Context API for state management
-- React Router for navigation
-- LocalStorage API
-- CSS Grid and Flexbox
-- Responsive design patterns
-- Component composition
-
----
-
-**Enjoy the demo! 🎮✨**
-#   c o g n i o u s - g a m e  
- 
+If you'd like, I can:
+- Commit this README.md back to the repository (I can prepare the exact commit).
+- Add a short CONTRIBUTING.md and DEVELOPMENT.md with commands, test scaffolding, and recommended next PR tasks.
+- Create a small checklist of concrete beginner-friendly issues you can work on to make the project more recruiter-ready (tests, accessibility, deployment).
